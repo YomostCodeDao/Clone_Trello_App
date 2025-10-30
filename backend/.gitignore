@@ -1,0 +1,51 @@
+# === Node / TypeScript build ===
+node_modules/
+dist/
+*.tsbuildinfo
+
+# === Tests / Coverage ===
+coverage/
+.nyc_output/
+
+# === Logs ===
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+debug.log
+
+# === Env & secrets (giữ lại file mẫu) ===
+.env
+.env.*
+!.env.example
+
+# === OS / Editor cruft ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+# (nếu settings.json có secret thì đừng commit)
+# !.vscode/settings.json
+
+# === Docker / local volumes (nếu bạn tạo thư mục data local) ===
+pgdata/
+docker-data/
+docker-compose.override.yml
+
+# === App temp / uploads (local only) ===
+tmp/
+temp/
+uploads/
+
+# === DB files (phòng khi dùng SQLite cho test) ===
+*.sqlite
+*.db
+
+# === TypeORM legacy config (nếu lỡ tạo) ===
+ormconfig.json
+ormconfig.js
+ormconfig.yml

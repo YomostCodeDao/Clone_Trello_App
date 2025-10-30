@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    // Layout\
+    "rootDir": "src",
+    "outDir": "dist",
+    // Platform
+    "target": "ES2022",
+    "lib": [
+      "es2022"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "types": [
+      "node",
+      "jsonwebtoken"
+    ],
+    // Build outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    // Type checking
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+    // Interop & resolver
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    // Performance / compatibility
+    "skipLibCheck": true,
+    // IMPORTANT: dùng import/export với CommonJS
+    "verbatimModuleSyntax": false,
+    // Để mặc định auto, tránh ép “force” gây cảnh báo không cần thiết
+    "moduleDetection": "auto",
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
