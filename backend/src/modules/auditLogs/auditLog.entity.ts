@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeor
 @Entity('audit_logs')
 export class AuditLog {
     @PrimaryGeneratedColumn('uuid')
-    id: string;
+    id: string = '';  // Khởi tạo mặc định cho 'id'
 
     @Column('uuid')
     actorId: string;
@@ -28,12 +28,14 @@ export class AuditLog {
         action: string,
         entityType: string,
         entityId: string,
-        diff: object
+        diff: object,
+        createdAt: Date
     ) {
         this.actorId = actorId;
         this.action = action;
         this.entityType = entityType;
         this.entityId = entityId;
         this.diff = diff;
+        this.createdAt = createdAt;
     }
 }

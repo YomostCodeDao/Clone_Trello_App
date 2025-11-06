@@ -1,7 +1,8 @@
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
+import 'reflect-metadata';
 
-// Import tất cả các entity
+// Import các entity 
 import { User } from '../modules/users/user.entity';
 import { Profile } from '../modules/profiles/profile.entity';
 import { Project } from '../modules/projects/project.entity';
@@ -17,17 +18,18 @@ import { RefreshToken } from '../modules/refreshTokens/refreshToken.entity';
 import { CardLabel } from '../modules/cardLabels/cardLabel.entity';
 import { CardLabelMap } from '../modules/cardLabels/cardLabelMap.entity';
 
-// Load biến môi trường từ file .env
-dotenv.config();
+dotenv.config();  
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
-    host: process.env.DB_HOST,               // Sử dụng process.env thay vì env
-    port: parseInt(process.env.DB_PORT || '5432', 10),  // Chuyển đổi DB_PORT từ string sang số
-    username: process.env.DB_USER,           // Sử dụng process.env thay vì env
-    password: process.env.DB_PASS,           // Sử dụng process.env thay vì env
-    database: process.env.DB_NAME,           // Sử dụng process.env thay vì env
-    ssl: false,                              // Chỉ cần false trừ khi bạn dùng SSL
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT || '5432', 10),
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    ssl: false,
+    logging: true,
+    synchronize: true,
     entities: [
         User,
         Profile,
@@ -44,7 +46,7 @@ export const AppDataSource = new DataSource({
         CardLabel,
         CardLabelMap,
     ],
-    migrations: ['src/db/migrations/*.ts'],  // Đảm bảo đường dẫn đúng
-    synchronize: false,                      // Đừng sử dụng synchronize=true trên production
-    logging: true,                           // Bật logging khi cần thiết
+    migrations: ['src/db/migrations/*.ts'], // đường dẫn tới migration
+    
 });
+export default AppDataSource;

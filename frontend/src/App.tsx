@@ -1,28 +1,31 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import LoginPage from "@/pages/Login";
-import RegisterPage from "@/pages/Register";
-import Dashboard from "@/pages/Dashboard";
-import { ProtectedRoute, GuestOnlyRoute } from "@/router"; // nếu bạn đã có guard
+// src/App.tsx
+
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
+import LoginPage from './pages/Login';
+import WorkspacePage from './pages/Workspace';
+import { ProtectedRoute, GuestOnlyRoute } from './router'; // Tạo Route Guard
 
 export default function App() {
   return (
-    <Routes>
-      {/* mở "/" → về /login */}
-      <Route index element={<Navigate to="/login" replace />} />
+    <AuthProvider> {/* Bao bọc ứng dụng với AuthProvider */}
+      <Routes>
+        <Route index element={<Navigate to="/login" replace />} />
 
-      {/* Khách mới: login + register */}
-      <Route element={<GuestOnlyRoute />}>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Route>
+        {/* Chỉ cho phép khách truy cập login và register */}
+        <Route element={<GuestOnlyRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+        </Route>
 
-      {/* Bảo vệ: đã đăng nhập */}
-      <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Dashboard />} />
-      </Route>
+        {/* Các trang bảo vệ, chỉ cho phép truy cập khi đã đăng nhập */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/workspace" element={<WorkspacePage />} />
+        </Route>
 
-      {/* fallback */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
-    </Routes>
+        {/* Fallback route */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </AuthProvider>
   );
 }

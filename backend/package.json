@@ -11,10 +11,14 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js -d src/db/data-source.ts",
-    "migration:generate": "npm run typeorm -- migration:generate src/db/migrations/InitAuth",
-    "migration:run": "npm run typeorm -- migration:run",
+    "migration:generate": "ts-node ./node_modules/typeorm/cli.js -d src/db/data-source.ts migration:generate",
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js -d src/db/data-source.ts migration:run",
     "migration:revert": "npm run typeorm -- migration:revert",
-    "seed": "ts-node src/db/seeds/seed.ts"
+    "seed": "ts-node src/db/seeds/seed.ts",
+    "mig:create": "npm run typeorm -- migration:create",
+    "mig:gen": "npm run typeorm -- migration:generate",
+    "mig:run": "npm run typeorm -- migration:run -d src/db/data-source.ts",
+    "mig:revert": "npm run typeorm -- migration:revert -d src/db/data-source.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
@@ -44,6 +48,7 @@
     "@types/node": "^24.5.2",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.2"
   },

@@ -5,8 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button"; // đã có sẵn trong project bạn
 import { useAuth } from "@/lib/auth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { PasswordInput } from "@/components/ui/password-input";
-
+import { PasswordInput } from "@/components/ui/password-input"; // Giả sử bạn đã có component PasswordInput
 
 type FormState = {
     email: string;
@@ -16,7 +15,7 @@ type FormState = {
 };
 
 export default function LoginPage() {
-    const { login } = useAuth();
+    const { login } = useAuth(); // Giả sử bạn có hook useAuth để login
     const nav = useNavigate();
     const loc = useLocation();
     const [form, setForm] = React.useState<FormState>({
@@ -26,17 +25,17 @@ export default function LoginPage() {
     });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-        setForm(s => ({ ...s, [e.target.name]: e.target.value, error: "" }));
+        setForm((s) => ({ ...s, [e.target.name]: e.target.value, error: "" }));
 
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            setForm(s => ({ ...s, loading: true }));
+            setForm((s) => ({ ...s, loading: true }));
             await login(form.email, form.password);
-            const to = (loc.state as any)?.from?.pathname ?? "/";
+            const to = (loc.state as any)?.from?.pathname ?? "/workspace"; // Chuyển hướng đến workspace sau khi đăng nhập thành công
             nav(to, { replace: true });
         } catch {
-            setForm(s => ({ ...s, error: "Login failed", loading: false }));
+            setForm((s) => ({ ...s, error: "Login failed", loading: false }));
         }
     };
 
@@ -80,9 +79,7 @@ export default function LoginPage() {
                         />
                     </div>
 
-                    {form.error && (
-                        <p className="text-sm text-red-400">{form.error}</p>
-                    )}
+                    {form.error && <p className="text-sm text-red-400">{form.error}</p>}
 
                     <Button
                         type="submit"
@@ -96,21 +93,16 @@ export default function LoginPage() {
                         type="button"
                         variant="outline"
                         className="w-full bg-white text-black border border-neutral-700
-                        hover:bg-black hover:text-neutral-300
-                        focus:outline-none focus:ring-2 focus:ring-neutral-600
-                        font-medium"
+            hover:bg-black hover:text-neutral-300
+            focus:outline-none focus:ring-2 focus:ring-neutral-600
+            font-medium"
                     >
                         Login with Google
                     </Button>
-
-
                 </form>
 
                 <div className="mt-4 text-center text-sm text-neutral-400">
-                    Don’t have an account?{" "}
-                    <Link to="/register" className="underline">
-                        Sign up
-                    </Link>
+                    Don’t have an account? <Link to="/register" className="underline">Sign up</Link>
                 </div>
             </Card>
         </div>
