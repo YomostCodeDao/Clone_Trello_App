@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager</title>
+
+  <!-- GitHub Pages SPA redirect script -->
+  <script>
+    // Check if we have a redirect parameter
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get('redirect');
+
+      if (redirect) {
+        // Remove the redirect parameter and navigate to the path
+        const url = new URL(window.location.href);
+        url.searchParams.delete('redirect');
+
+        // Store the redirect path for React Router
+        sessionStorage.setItem('redirect', redirect);
+
+        // Replace history to clean URL
+        window.history.replaceState(null, '', url.toString());
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
